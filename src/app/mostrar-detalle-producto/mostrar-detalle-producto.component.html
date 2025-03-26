@@ -1,0 +1,70 @@
+<div class="mt-5 p-3">
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Buscar por Producto</mat-label>
+    <input matInput
+           #buscarPorClave
+           (keyup)="buscarProductoPorClave(buscarPorClave.value)"
+           name="buscarProducto"
+           id="buscarProducto"
+           placeholder="Search any product">
+    <mat-hint>Buscar cualquier Producto</mat-hint>
+</mat-form-field>
+
+<div *ngIf="mostrarTabla">
+<table mat-table [dataSource]="productoDetalles" class="mat-elevation-z8">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.productoId}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Nombre-Producto">
+      <th mat-header-cell *matHeaderCellDef> Nombre Producto </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombreProducto}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Descripcion-Producto">
+      <th mat-header-cell *matHeaderCellDef> Descripcion Producto </th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcionProducto}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Descuento-Precio-Producto">
+      <th mat-header-cell *matHeaderCellDef> Descuento Precio Producto </th>
+      <td mat-cell *matCellDef="let element"> {{element.descuentoPrecioProducto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Precio-Actual-Producto">
+        <th mat-header-cell *matHeaderCellDef> Precio Actual Producto </th>
+        <td mat-cell *matCellDef="let element"> {{element.precioActualProducto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Accion">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" (click)="mostrarImagenes(element)">
+          <mat-icon> images </mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="editarProducto(element.productoId)">
+          <mat-icon> edit </mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminarProducto(element.productoId)">
+          <mat-icon> delete </mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="desplazeDeColumna"></tr>
+    <tr mat-row *matRowDef="let row; columns: desplazeDeColumna;"></tr>
+  </table>
+</div>
+  <div class="text-center p-5" *ngIf="mostrarBotonDeCargaDeMasProducto">
+  <button type="button" mat-raised-button color="primary" (click)="cargarMasProductos()">Cargar mas</button>
+  </div>
+
+
+</div>

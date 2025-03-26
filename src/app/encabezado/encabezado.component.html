@@ -1,0 +1,41 @@
+<mat-toolbar class="mat-elevation-z8" [color]="themeService.obtenerTema()">
+  <span>
+    SISTEMA DE COMERCIO ELECTRONICO
+  </span>
+
+  <span class="space-buttons"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" >
+      <mat-icon>palette</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-fab color="primary" class="button-margin" (click)="cambiarTema('primary')">
+      <mat-icon *ngIf="themeService.obtenerTema()=== 'primary'">done</mat-icon>
+    </button>
+    <button mat-fab color="accent" class="button-margin" (click)="cambiarTema('accent')">
+      <mat-icon *ngIf="themeService.obtenerTema()=== 'accent'">done</mat-icon>
+    </button>
+    <button mat-fab color="warn" class="button-margin" (click)="cambiarTema('warn')">
+      <mat-icon *ngIf="themeService.obtenerTema()=== 'warn'">done</mat-icon>
+    </button>
+  </mat-menu>
+  <button *ngIf="! estaLogueado()" routerLink="/login" mat-raised-button [color]="themeService.obtenerTema()">
+    Login
+  </button>
+  <button *ngIf="estaLogueado()" (click)="logout()" mat-raised-button [color]="themeService.obtenerTema()">
+    Logout
+  </button>
+  <nav>
+    <div>
+      Bienvenido, {{usuarioAuth.isLoggedIn()}} <!--Esto estaba aumentando para mostrar el nombre de usuario del sistema-->
+    </div>
+  </nav>
+</mat-toolbar>
+
+<mat-toolbar *ngIf="estaLogueado()">
+  <button mat-raised-button [color]="themeService.obtenerTema()" routerLink="/">Inicio</button>
+  <button *ngIf="!isAdmin()" mat-raised-button [color]="themeService.obtenerTema()" routerLink="/carrito">Carrito</button>
+  <button *ngIf="!isAdmin()" mat-raised-button [color]="themeService.obtenerTema()" routerLink="/miPedido">Mis Pedidos</button>
+  <button *ngIf="isAdmin()" mat-raised-button [color]="themeService.obtenerTema()" routerLink="/AddNuevoProducto">Agregar Nuevo Producto</button>
+  <button *ngIf="isAdmin()" mat-raised-button [color]="themeService.obtenerTema()" routerLink="/mostrarProductoDetalles">Mostrar Detalles Producto</button>
+  <button *ngIf="isAdmin()" mat-raised-button [color]="themeService.obtenerTema()" routerLink="/informacionPedido">Informacion De Pedido</button>
+</mat-toolbar>

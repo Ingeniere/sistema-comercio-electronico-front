@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="card" style="padding: 20px;">
+      <form #loginFormulario="ngForm" (ngSubmit)="login(loginFormulario)" >
+
+          <mat-form-field appearance="outline" class="w-100" [color]="themeService.obtenerTema()">
+              <mat-label>Usuario</mat-label>
+              <input matInput
+                     ngModel
+                     name="usuario"
+                     id="usuario"
+                     placeholder="Usuario">
+              <mat-hint>Usuario</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100" [color]="themeService.obtenerTema()">
+              <mat-label>Contraseña</mat-label>
+              <input type="password"
+                  matInput
+                     ngModel
+                     name="password"
+                     id="password"
+                     placeholder="Password">
+              <mat-hint>Contraseña</mat-hint>
+          </mat-form-field>
+
+          <button class="w-100" type="submit" mat-raised-button [color]="themeService.obtenerTema()">Iniciar Sesion</button>
+      </form>
+
+
+  </div>
+  <div class="text-center">
+      <br>
+      <button class="w-20" mat-raised-button [color]="themeService.obtenerTema()" type="button" (click)="enviarRegistroUsuario()">Crear una Cuenta</button>
+  </div>
+
+</div>

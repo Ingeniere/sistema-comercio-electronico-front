@@ -1,0 +1,56 @@
+<div class="container mt-5">
+  <mat-button-toggle-group  aria-label="Font Style">
+    <mat-button-toggle value="Todo" (click)="obtenerTodosLosPedidosParaAdmin('Todo')">Todos</mat-button-toggle>
+    <mat-button-toggle value="Realizado" (click)="obtenerTodosLosPedidosParaAdmin('Realizado')">Los Pedidos</mat-button-toggle>
+    <mat-button-toggle value="Entregado" (click)="obtenerTodosLosPedidosParaAdmin('Entregado')" >Los Entregados</mat-button-toggle>
+  </mat-button-toggle-group>
+
+<table mat-table [dataSource]="fuenteDeDato" class="mat-elevation-z8 mt-3">
+
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.pedidoId}} </td>
+    </ng-container>
+
+    <!-- Product Name Column -->
+    <ng-container matColumnDef="Nombre de Producto">
+      <th mat-header-cell *matHeaderCellDef> Nombre Producto </th>
+      <td mat-cell *matCellDef="let element"> {{element.producto.nombreProducto}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Nombre">
+      <th mat-header-cell *matHeaderCellDef> Usuario </th>
+      <td mat-cell *matCellDef="let element"> {{element.usuario.usuario}} </td>
+    </ng-container>
+
+    <!-- Address Column -->
+    <ng-container matColumnDef="Direccion">
+      <th mat-header-cell *matHeaderCellDef> Direccion </th>
+      <td mat-cell *matCellDef="let element"> {{element.direccionCompletaPedido}} </td>
+    </ng-container>
+
+     <!-- Contact No. Column -->
+     <ng-container matColumnDef="Telefono">
+        <th mat-header-cell *matHeaderCellDef> Telefono. </th>
+        <td mat-cell *matCellDef="let element"> {{element.numeroContactoPedido}} </td>
+      </ng-container>
+
+       <!-- orderStatus Column -->
+     <ng-container matColumnDef="Estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let element"> {{element.estadoPedido}} </td>
+      </ng-container>
+
+       <!-- Action Column -->
+     <ng-container matColumnDef="Accion">
+      <th mat-header-cell *matHeaderCellDef> Accion </th>
+      <td mat-cell *matCellDef="let element">
+        <button *ngIf="element.estadoPedido == 'Realizado'" mat-raised-button [color]="themeService.obtenerTema()" (click)="marcarComoEntregado(element.pedidoId)">Marcar Como Entregado</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="desplazarColumnasDeTabla"></tr>
+    <tr mat-row *matRowDef="let row; columns: desplazarColumnasDeTabla;"></tr>
+  </table>
+</div>

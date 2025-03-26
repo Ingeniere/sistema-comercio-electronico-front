@@ -1,0 +1,92 @@
+<div class="container mt-5">
+  <div class="card p-3">
+      <div class="row">
+          <div class="col-6">
+
+              <form #orderForm="ngForm"
+                    (ngSubmit)="createTransactionAndPlaceOrder(orderForm)">
+                  <mat-form-field appearance="outline"
+                                  class="w-100">
+                      <mat-label>Nombre completo</mat-label>
+                      <input matInput
+                             placeholder="Nombre completo"
+                             [(ngModel)]="detallePedido.nombreCompleto"
+                             name="nombreCompleto">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"
+                                  class="w-100">
+                      <mat-label>Direccion</mat-label>
+                      <input matInput
+                             placeholder="Direccion"
+                             [(ngModel)]="detallePedido.direccion"
+                             name="direccion">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"
+                                  class="w-100">
+                      <mat-label>Numero Telefono</mat-label>
+                      <input matInput
+                             placeholder="Numero Telefono"
+                             [(ngModel)]="detallePedido.numeroContacto"
+                             name="numeroContacto">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"
+                                  class="w-100">
+                      <mat-label>Numero Telefono Alterno</mat-label>
+                      <input matInput
+                             placeholder="Numero Telefono Alterno"
+                             [(ngModel)]="detallePedido.numeroAlternoContacto"
+                             name="numeroAlternoContacto">
+                  </mat-form-field>
+
+                  <div align="right">
+                      <button type="submit" mat-stroked-button color="primary">Realizar Pedido</button>
+                  </div>
+              </form>
+
+          </div>
+         <!----> <div class="col-6">
+              <table class="table">
+                  <thead class="thead">
+                      <tr>
+                          <th>Nombre</th>
+                          <th>Monto</th>
+                          <th>Cantidad</th>
+                          <th>Total</th>
+                      </tr>
+                  </thead>
+                  <tbody class="tbody">
+                      <tr *ngFor="let producto of detalleProducto">
+                          <td>{{producto.nombreProducto}}</td>
+                          <td>{{producto.descuentoPrecioProducto}}</td>
+                           <td>
+                            <!--"#cantidad" con esta ayuda vamos a poder hacer el cambio en cambiarCantidad(cantidad.value, producto.productoId)-->
+                              <select
+                              #cantidad
+                              class="form-select"
+                              [ngModel]="obtenerCantidadDeProductoAComprar(producto.productoId)"
+                              (change)="cambiarCantidad(cantidad.value, producto.productoId)"
+                              >
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                              </select>
+                          </td>
+                          <td>
+                              {{obtenerCalcularTotal(producto.productoId, producto.descuentoPrecioProducto)}}
+                          </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td> {{calcularLaCantidadTotal()}} </td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>

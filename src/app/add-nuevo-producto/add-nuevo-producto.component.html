@@ -1,0 +1,105 @@
+<div class="container mt-5">
+  <div class="card p-2">
+
+      <div class="row">
+          <div class="col-6">
+
+              <form #productForm="ngForm"
+                    (ngSubmit)="addProducto(productForm)">
+
+                  <mat-form-field appearance="outline"
+                                  class="w-100">
+                      <mat-label>Nombre Producto</mat-label>
+                      <input matInput
+                             placeholder="Nombre Producto"
+                             [(ngModel)]="producto.nombreProducto"
+                             name="productoNombre">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"
+                                  class="w-100">
+                      <mat-label>Descripcion Producto</mat-label>
+                      <input matInput
+                             placeholder="Descripcion Producto"
+                             [(ngModel)]="producto.descripcionProducto"
+                             name="productoDescripcion">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"
+                                  class="w-100">
+                      <mat-label>Precio Actual Producto</mat-label>
+                      <input matInput
+                             placeholder="Precio Actual Producto"
+                             [(ngModel)]="producto.precioActualProducto"
+                             name="productoActualPrecio">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"
+                                  class="w-100">
+                      <mat-label>Descuento Precio Producto</mat-label>
+                      <input matInput
+                             placeholder="Product Discounted Price"
+                             [(ngModel)]="producto.descuentoPrecioProducto"
+                             name="productoDescuentoPrecio">
+                  </mat-form-field>
+
+                  <div align="end">
+                      <button mat-stroked-button
+                              color="primary"
+                              style="margin-right: 3px;">Limpiar</button>
+                      <button type="submit" *ngIf="esNuevoProducto"
+                              mat-stroked-button
+                              color="primary">Adicionar Producto</button>
+                      <button type="submit" *ngIf="!esNuevoProducto"
+                              mat-stroked-button
+                              color="primary">Actualizar Producto</button>
+                  </div>
+
+              </form>
+
+          </div>
+          <div class="col-6">
+              <div>
+                  <!-- en "appDrag" y "files" estamos incrustando del archivo drag.directive.ts-->
+                  <div class="dropzone"
+                       appDrag
+                       (files)="abandonarArchivo($event)">
+                      <div class="text-wrapper">
+                          <div class="centered">
+                            Arrastre y suelte su archivo
+                              <a (click)="selectFile.click()"
+                                 class="browse-button">navegar</a><!-- selectFile viene de la linea 80 -->
+                            un archivo
+                          </div>
+
+                      </div>
+                  </div>
+                  <input multiple
+                         type="file"
+                         style="display: none;"
+                         #selectFile
+                         value="select"
+                         (change)="elArchivoSeleccionado($event)">
+              </div>
+
+              <div class="mt-5">
+                  <div class="row">
+                      <mat-grid-list cols="4"
+                                     rowHeight="1:1">
+                          <mat-grid-tile *ngFor="let file of producto.productoImagenes; let i = index;">
+                              <div style="position: relative">
+                                  <span class="btn-remove-image"
+                                        (click)="removerImagen(i)">x</span>
+                                  <img [src]="file.url"
+                                       width="100px"
+                                       height="100px"><!-- en file.url el url esta incrustado en producto.modelo.ts en el atributo productImages: FileHandle[] y dentro de FileHandle esta el atributo url -->
+                              </div>
+                          </mat-grid-tile>
+                      </mat-grid-list>
+                  </div>
+
+          </div>
+      </div>
+
+  </div>
+</div>
